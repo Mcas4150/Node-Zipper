@@ -5,9 +5,8 @@ const { PassThrough } = require("stream");
 const cliProgress = require("cli-progress");
 
 // Define Paths
-const url = "https://i.ytimg.com/vi/8NFsCDebQi0/maxresdefault.jpg";
-const url2 =
-  "https://filmdaily.co/wp-content/uploads/2020/09/DirtyFunnyMemes-lede72-1300x1115.jpg";
+const url = "https://i.imgur.com/CFdbvLN.png";
+const url2 = "https://i.imgur.com/scdbsUy.png";
 const zipPath = `./zipped.zip`;
 
 // Define Streams
