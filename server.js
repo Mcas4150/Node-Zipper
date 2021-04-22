@@ -64,6 +64,4 @@ archive.append(stream1, { name: "zipimg.jpg" });
 archive.append(stream2, { name: "img2.jpg" });
 archive.pipe(report);
 archive.pipe(output);
-
-// multiBar.stop();
 archive.finalize();
