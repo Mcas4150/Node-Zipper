@@ -14,29 +14,22 @@ const stream1 = new PassThrough();
 const stream2 = new PassThrough();
 const output = fs.createWriteStream(zipPath);
 
-let multiBar = new cliProgress.MultiBar(
+const multiBar = new cliProgress.MultiBar(
   {
-    format: "{bar} {percentage}% | ETA: {eta}s",
+    format: "{bar} {percentage}% | ETA: {eta}s | {value}/{total}",
+    barCompleteChar: "\u2588",
+    barIncompleteChar: "\u2591",
     clearOnComplete: false,
     hideCursor: true,
   },
   cliProgress.Presets.shades_classic
 );
 
-let outputSize = fs.statSync(zipPath);
-const report = new PassThrough();
-let receivedBytes = 0;
-let progressBar = multiBar.create(outputSize, 0);
-report.on("data", (chunk) => {
-  receivedBytes += chunk.length;
-  progressBar.update(receivedBytes);
-});
-
-const downloadFile = (url, stream, progress) => {
+const downloadFile = (url, stream) => {
   https.get(url, (res) => {
     let receivedBytes = 0;
     let totalBytes = res.headers["content-length"];
-    let progressBar = progress.create(totalBytes, 0);
+    let progressBar = multiBar.create(totalBytes, 0);
     res
       .on("data", (chunk) => {
         receivedBytes += chunk.length;
@@ -46,8 +39,8 @@ const downloadFile = (url, stream, progress) => {
   });
 };
 
-downloadFile(url, stream1, multiBar);
-downloadFile(url2, stream2, multiBar);
+downloadFile(url, stream1);
+downloadFile(url2, stream2);
 
 // Archive Compression
 const archive = archiver("zip", {
@@ -58,8 +51,8 @@ archive.on("error", function (err) {
   throw err;
 });
 
-archive.append(stream1, { name: "zipimg.jpg" });
+archive.append(stream1, { name: "img1.jpg" });
 archive.append(stream2, { name: "img2.jpg" });
-archive.pipe(report);
-archive.pipe(output);
 archive.finalize();
+archive.pipe(output);
+
