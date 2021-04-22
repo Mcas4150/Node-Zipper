@@ -39,7 +39,6 @@ const downloadFile = (url, stream, progress) => {
     let receivedBytes = 0;
     let totalBytes = res.headers["content-length"];
     let progressBar = progress.create(totalBytes, 0);
-    // progressBar.start(totalBytes, 0);
     res
       .on("data", (chunk) => {
         receivedBytes += chunk.length;
