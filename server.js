@@ -25,7 +25,6 @@ let multiBar = new cliProgress.MultiBar(
 );
 
 let outputSize = fs.statSync(zipPath);
-
 const report = new PassThrough();
 let receivedBytes = 0;
 let progressBar = multiBar.create(outputSize, 0);
