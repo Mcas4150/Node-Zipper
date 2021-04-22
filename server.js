@@ -8,7 +8,7 @@ const cliProgress = require("cli-progress");
 const url = "https://i.ytimg.com/vi/8NFsCDebQi0/maxresdefault.jpg";
 const url2 =
   "https://filmdaily.co/wp-content/uploads/2020/09/DirtyFunnyMemes-lede72-1300x1115.jpg";
-const zipPath = `${__dirname}/files/zipped.zip`;
+const zipPath = `./zipped.zip`;
 
 // Define Streams
 const stream1 = new PassThrough();
